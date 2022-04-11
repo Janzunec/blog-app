@@ -27,7 +27,7 @@ const Posts = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const resp = await fetch('http://192.168.1.230:3000/post/all', {
+			const resp = await fetch('http://192.168.1.230:4000/post/all', {
 				method: 'GET',
 			});
 			const fetchedData = await resp.json().then((res) => res);
