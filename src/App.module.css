@@ -1,9 +1,23 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 .App {
 	margin: 0;
 	padding: 0;
 	min-width: 100%;
 	min-height: 100vh;
 	text-align: center;
-	background-color: whitesmoke;
-	color: black;
+	background: linear-gradient(to top, #111827, #343e4e);
+	color: white;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.footer {
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #acb0b6;
 }

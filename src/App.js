@@ -11,8 +11,12 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Posts />} />
 					<Route path='about' element={<About />} />
+					<Route path='login' element={<About />} />
 				</Routes>
 			</BrowserRouter>
+			<div className={style.footer}>
+				Copyright &copy; 2022 - Website By Jan Žunec
+			</div>
 		</div>
 	);
 }

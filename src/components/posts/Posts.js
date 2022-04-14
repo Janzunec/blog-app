@@ -1,29 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import PostCard from '../UI/Cards/PostCard';
 import style from './Posts.module.css';
 
 const Posts = () => {
-	const [data, setData] = useState([
-		// {
-		// 	post_ID: 1,
-		// 	title: 'New graphics card1',
-		// 	body: 'New RTX3090Ti was just released',
-		// 	uploaded: new Date('29-03-2022T14:48:00.000Z'),
-		// },
-		// {
-		// 	post_ID: 2,
-		// 	title: 'New graphics card 2',
-		// 	body: 'New RTX3080Ti was just released',
-		// 	uploaded: new Date('22-03-2022T11:48:00.000Z'),
-		// },
-		// {
-		// 	post_ID: 3,
-		// 	title: 'New graphics card 3',
-		// 	body: 'New RTX3070Ti was just released',
-		// 	uploaded: new Date('09-04-2022T17:48:00.000Z'),
-		// },
-	]);
+	const [data, setData] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -31,28 +11,39 @@ const Posts = () => {
 				method: 'GET',
 			});
 			const fetchedData = await resp.json().then((res) => res);
-			setData([...fetchedData]);
+			const transformedData = fetchedData.reverse().map((post) => {
+				post.uploaded = new Date(`${post.uploaded}`);
+				return post;
+			});
+			console.log(transformedData);
+			setData([...transformedData]);
 		};
 		try {
 			fetchData();
 		} catch (err) {
 			console.log(err);
 		}
-	}, [data]);
+	}, []);
 
 	return (
 		<Fragment>
-			<Link to={'about'}>About</Link>
-			<h1>Recent posts</h1>
 			<div className={style.postContainer}>
-				{data.map((post) => (
+				{data.map((post, i) => (
 					<PostCard
 						key={post.post_ID}
 						id={post.post_ID}
+						index={i}
 						title={post.title}
 						body={post.body}
 						uploaded={post.uploaded}
-						// image={post.image}
+						image={post.image}
+						user={{
+							userID: post.User_ID,
+							firstName: post.firstName,
+							secondName: post.secondName,
+							username: post.username,
+							email: post.email,
+						}}
 					/>
 				))}
 			</div>
