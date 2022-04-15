@@ -10,7 +10,7 @@
 }
 
 .links {
-	width: 50%;
+	width: 60%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -31,7 +31,7 @@
 
 .searchBar {
 	height: 40px;
-	width: 200px;
+	width: 250px;
 	background-color: #283241;
 	border: none;
 	border-radius: 2rem;

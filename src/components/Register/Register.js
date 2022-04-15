@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/auth-context';
 import style from './Login.module.css';
 
-const Login = () => {
+const Register = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [usernameIsValid, setUsernameIsValid] = useState(true);
@@ -117,4 +117,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Register;

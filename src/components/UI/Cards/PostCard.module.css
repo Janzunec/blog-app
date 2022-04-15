@@ -23,8 +23,8 @@
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
-	gap: 8px;
+	/* justify-content: space-evenly; */
+	gap: 5px;
 	/* border: 1px solid red; */
 }
 
@@ -35,17 +35,27 @@
 }
 
 .postCardTitle {
+	height: 90px;
 	text-align: left;
 	font-size: 2rem;
-}
-
-.postCardBody {
-	font-size: 1.3rem;
-	color: #acb0b6;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	word-break: break-all;
+	word-break: normal;
+	overflow: hidden;
+	hyphens: auto;
+	display: flex;
+	align-items: center;
+}
+
+.postCardBody {
+	height: 90px;
+	font-size: 1.3rem;
+	color: #acb0b6;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	word-break: normal;
 	overflow: hidden;
 	hyphens: auto;
 	text-align: left;
@@ -87,7 +97,12 @@
 	padding: 0 2rem;
 }
 
+.latestTitle {
+	height: auto;
+}
+
 .latestBody {
+	height: auto;
 	-webkit-line-clamp: 5;
 	line-height: 190%;
 }

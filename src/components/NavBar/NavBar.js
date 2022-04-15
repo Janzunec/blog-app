@@ -1,20 +1,14 @@
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
-import AuthContext from '../context/auth-context';
 import style from './NavBar.module.css';
+import LogoutBtn from '../UI/Buttons/LogoutBtn';
+import AuthContext from '../context/auth-context';
 
 const NavBar = () => {
 	const currLocation = useLocation();
 
 	const authCtx = useContext(AuthContext);
-
-	const navigate = useNavigate();
-
-	const logoutHandler = () => {
-		authCtx.onLogout();
-		navigate('/');
-	};
 
 	return (
 		<div className={style.navbar}>
@@ -58,20 +52,16 @@ const NavBar = () => {
 								: ''
 						}`}
 					>
-						User
+						{authCtx.user.username}
 					</Link>
 				)}
-				{authCtx.isLoggedIn && (
-					<FiLogOut
-						className={style.logoutBtn}
-						onClick={logoutHandler}
-					/>
-				)}
+				{authCtx.isLoggedIn && <LogoutBtn />}
 			</ul>
 			<input
 				name='search'
 				defaultValue=''
 				placeholder='Search'
+				type='search'
 				className={style.searchBar}
 			/>
 		</div>

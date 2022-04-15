@@ -33,7 +33,13 @@ const PostCard = (props) => {
 					// hour: 'numeric',
 					// minute: 'numeric',
 				})}`}</div>
-				<div className={style.postCardTitle}>{props.title}</div>
+				<div
+					className={`${style.postCardTitle} ${
+						props.index === 0 ? style.latestTitle : ''
+					}`}
+				>
+					{props.title}
+				</div>
 				<div
 					className={`${style.postCardBody} ${
 						props.index === 0 ? style.latestBody : ''
