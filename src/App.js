@@ -5,6 +5,7 @@ import About from './components/About/About';
 import Login from './components/Login/Login';
 import NavBar from './components/NavBar/NavBar';
 import Posts from './components/posts/Posts';
+import Register from './components/Register/Register';
 import User from './components/User/User';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
 					<Route path='/' element={<Posts />} />
 					<Route path='about' element={<About />} />
 					<Route path='login' element={<Login />} />
+					<Route path='register' element={<Register />} />
 					<Route path='user' element={<User />} />
 				</Routes>
 			</BrowserRouter>

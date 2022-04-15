@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/auth-context';
-import style from './Login.module.css';
+import style from './Register.module.css';
 
 const Register = () => {
 	const [username, setUsername] = useState('');
@@ -90,6 +90,26 @@ const Register = () => {
 			)}
 			<form onSubmit={submitHandler} className={style.loginForm}>
 				<input
+					name='firstName'
+					placeholder='First Name'
+					type='text'
+					onChange={usernameInputHandler}
+					autoFocus={true}
+					className={`${style.userDataInput} ${
+						usernameIsValid ? '' : style.invalidInput
+					}`}
+				/>
+				<input
+					name='secondName'
+					placeholder='Surname'
+					type='text'
+					value={password}
+					onChange={passwordInputHandler}
+					className={`${style.userDataInput} ${
+						passwordIsValid ? '' : style.invalidInput
+					}`}
+				/>
+				<input
 					name='username'
 					placeholder='Username'
 					type='text'
@@ -97,6 +117,26 @@ const Register = () => {
 					autoFocus={true}
 					className={`${style.userDataInput} ${
 						usernameIsValid ? '' : style.invalidInput
+					}`}
+				/>
+				<input
+					name='email'
+					placeholder='Email'
+					type='email'
+					value={password}
+					onChange={passwordInputHandler}
+					className={`${style.userDataInput} ${
+						passwordIsValid ? '' : style.invalidInput
+					}`}
+				/>
+				<input
+					name='password'
+					placeholder='Password'
+					type='password'
+					value={password}
+					onChange={passwordInputHandler}
+					className={`${style.userDataInput} ${
+						passwordIsValid ? '' : style.invalidInput
 					}`}
 				/>
 				<input
