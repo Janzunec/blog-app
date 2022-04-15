@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PostCard from '../UI/Cards/PostCard';
 import style from './Posts.module.css';
 
@@ -15,7 +15,6 @@ const Posts = () => {
 				post.uploaded = new Date(`${post.uploaded}`);
 				return post;
 			});
-			console.log(transformedData);
 			setData([...transformedData]);
 		};
 		try {

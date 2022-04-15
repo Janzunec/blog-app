@@ -3,15 +3,7 @@ import style from './PostCard.module.css';
 
 const PostCard = (props) => {
 	const defaultLang = window.navigator.language;
-	const today = new Date();
-	const dateStr = today.toLocaleString(defaultLang, {
-		month: 'short',
-		day: 'numeric',
-		year: 'numeric',
-		hour: 'numeric',
-		minute: 'numeric',
-	});
-	console.log(dateStr);
+
 	return (
 		<div
 			className={`${style.postCard} ${

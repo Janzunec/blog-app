@@ -1,17 +1,22 @@
 import React from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import style from './App.module.css';
-import About from './components/about/About';
+import About from './components/About/About';
+import Login from './components/Login/Login';
+import NavBar from './components/NavBar/NavBar';
 import Posts from './components/posts/Posts';
+import User from './components/User/User';
 
 function App() {
 	return (
 		<div className={style.App}>
 			<BrowserRouter>
+				<NavBar />
 				<Routes>
 					<Route path='/' element={<Posts />} />
 					<Route path='about' element={<About />} />
-					<Route path='login' element={<About />} />
+					<Route path='login' element={<Login />} />
+					<Route path='user' element={<User />} />
 				</Routes>
 			</BrowserRouter>
 			<div className={style.footer}>

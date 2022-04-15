@@ -1,0 +1,15 @@
+.userDataInput {
+	height: 40px;
+	width: 400px;
+	color: white;
+	background-color: #283241;
+	border: none;
+	border-radius: 2rem;
+	padding: 0 10px;
+	font-size: 1.2rem;
+}
+
+.invalidInput {
+	border: 1px solid red;
+	background-color: #aa4444;
+}
