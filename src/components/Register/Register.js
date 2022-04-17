@@ -1,19 +1,41 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/auth-context';
 import style from './Register.module.css';
 
 const Register = () => {
+	const [firstName, setFirstName] = useState('');
+	const [secondName, setSecondName] = useState('');
 	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [firstNameIsValid, setFirstNameIsValid] = useState(true);
+	const [secondNameIsValid, setSecondNameIsValid] = useState(true);
 	const [usernameIsValid, setUsernameIsValid] = useState(true);
+	const [emailIsValid, setEmailIsValid] = useState(true);
 	const [passwordIsValid, setPasswordIsValid] = useState(true);
-	const [userExists, setUserExists] = useState(true);
-	const [passwordIsCorrect, setPasswordIsCorrect] = useState(true);
+	const [confirmPasswordIsValid, setConfirmPasswordIsValid] = useState(true);
+	const [error, setError] = useState(false);
 
 	const navigate = useNavigate();
 
-	const authCtx = useContext(AuthContext);
+	const firstNameInputHandler = (e) => {
+		if (e.target.value === '') {
+			setFirstNameIsValid(false);
+			return;
+		}
+		setFirstName(e.target.value);
+		setFirstNameIsValid(true);
+	};
+
+	const secondNameInputHandler = (e) => {
+		if (e.target.value === '') {
+			setSecondNameIsValid(false);
+			return;
+		}
+		setSecondName(e.target.value);
+		setSecondNameIsValid(true);
+	};
 
 	const usernameInputHandler = (e) => {
 		if (e.target.value === '') {
@@ -22,6 +44,15 @@ const Register = () => {
 		}
 		setUsername(e.target.value);
 		setUsernameIsValid(true);
+	};
+
+	const emailInputHandler = (e) => {
+		if (e.target.value === '') {
+			setEmailIsValid(false);
+			return;
+		}
+		setEmail(e.target.value);
+		setEmailIsValid(true);
 	};
 
 	const passwordInputHandler = (e) => {
@@ -33,44 +64,61 @@ const Register = () => {
 		setPasswordIsValid(true);
 	};
 
+	const confirmPasswordInputHandler = (e) => {
+		if (e.target.value === '') {
+			setConfirmPasswordIsValid(false);
+			return;
+		}
+		setConfirmPassword(e.target.value);
+		setConfirmPasswordIsValid(true);
+	};
+
 	const submitHandler = async (e) => {
 		e.preventDefault();
-		setUserExists(true);
-		setPasswordIsCorrect(true);
-		if (username === '' || password === '') return;
+		setError(false);
+		console.log(
+			firstName,
+			secondName,
+			username,
+			email,
+			password,
+			confirmPassword
+		);
+		if (
+			username === '' ||
+			password === '' ||
+			firstName === '' ||
+			secondName === '' ||
+			email === '' ||
+			confirmPassword === ''
+		)
+			return;
+		if (password !== confirmPassword) {
+			setConfirmPasswordIsValid(false);
+			return;
+		}
 		try {
-			const res = await fetch('http://192.168.1.230:4000/user/login', {
+			const res = await fetch('http://192.168.1.230:4000/user/add', {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
+					firstName: `${firstName}`,
+					secondName: `${secondName}`,
 					username: `${username}`,
+					email: `${email}`,
 					password: `${password}`,
 				}),
 			});
 			const resData = await res.json().then((data) => data);
-			if (!resData.userExists) {
-				setUserExists(resData.userExists);
-				setPassword('');
+			if (resData.response !== 'success') {
+				setError(resData.response);
 				return;
 			}
-			if (!resData.passwordMatch) {
-				setPasswordIsCorrect(resData.passwordMatch);
-				setPassword('');
 
-				return;
-			}
-			const userData = {
-				firstName: resData.firstName,
-				secondName: resData.secondName,
-				username: resData.username,
-				email: resData.email,
-			};
-			authCtx.onLogin(userData);
-
-			navigate('/');
+			navigate('/login');
 		} catch (err) {
 			console.log(err);
 		}
@@ -78,35 +126,25 @@ const Register = () => {
 
 	return (
 		<div className={style.login}>
-			{!userExists && (
-				<div className={style.errorMsg}>
-					User with entered username doesn't exist!
-				</div>
-			)}
-			{!passwordIsCorrect && (
-				<div className={style.errorMsg}>
-					Entered password is incorrect
-				</div>
-			)}
+			{error && <div>{error}</div>}
 			<form onSubmit={submitHandler} className={style.loginForm}>
 				<input
 					name='firstName'
 					placeholder='First Name'
 					type='text'
-					onChange={usernameInputHandler}
+					onChange={firstNameInputHandler}
 					autoFocus={true}
 					className={`${style.userDataInput} ${
-						usernameIsValid ? '' : style.invalidInput
+						firstNameIsValid ? '' : style.invalidInput
 					}`}
 				/>
 				<input
 					name='secondName'
 					placeholder='Surname'
 					type='text'
-					value={password}
-					onChange={passwordInputHandler}
+					onChange={secondNameInputHandler}
 					className={`${style.userDataInput} ${
-						passwordIsValid ? '' : style.invalidInput
+						secondNameIsValid ? '' : style.invalidInput
 					}`}
 				/>
 				<input
@@ -114,7 +152,6 @@ const Register = () => {
 					placeholder='Username'
 					type='text'
 					onChange={usernameInputHandler}
-					autoFocus={true}
 					className={`${style.userDataInput} ${
 						usernameIsValid ? '' : style.invalidInput
 					}`}
@@ -123,34 +160,31 @@ const Register = () => {
 					name='email'
 					placeholder='Email'
 					type='email'
-					value={password}
-					onChange={passwordInputHandler}
+					onChange={emailInputHandler}
 					className={`${style.userDataInput} ${
-						passwordIsValid ? '' : style.invalidInput
+						emailIsValid ? '' : style.invalidInput
 					}`}
 				/>
 				<input
 					name='password'
 					placeholder='Password'
 					type='password'
-					value={password}
 					onChange={passwordInputHandler}
 					className={`${style.userDataInput} ${
 						passwordIsValid ? '' : style.invalidInput
 					}`}
 				/>
 				<input
-					name='password'
-					placeholder='Password'
+					name='confirmPassword'
+					placeholder='Confirm password'
 					type='password'
-					value={password}
-					onChange={passwordInputHandler}
+					onChange={confirmPasswordInputHandler}
 					className={`${style.userDataInput} ${
-						passwordIsValid ? '' : style.invalidInput
+						confirmPasswordIsValid ? '' : style.invalidInput
 					}`}
 				/>
 				<button type='submit' className={style.loginBtn}>
-					Login
+					Register
 				</button>
 			</form>
 		</div>

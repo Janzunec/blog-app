@@ -7,4 +7,16 @@
 	gap: 1rem;
 	font-size: 2rem;
 	margin: 40px auto;
+	animation: fadeIn 300ms linear;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: rotateX(-10deg);
+	}
+	100% {
+		opacity: 100;
+		transform: rotateX(0);
+	}
 }

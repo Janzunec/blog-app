@@ -8,4 +8,16 @@
 	gap: 2rem 0px;
 	margin: 0 auto;
 	padding-top: 2rem;
+	animation: fadeIn 500ms ease-out;
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: rotateX(-10deg);
+	}
+	100% {
+		opacity: 100;
+		transform: rotateX(0);
+	}
 }
